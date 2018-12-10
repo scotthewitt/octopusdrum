@@ -19,7 +19,7 @@ public class OctopusInterface extends Seq{
             led.unlight();
         }
     }
-    
+    //flash led
     spork ~ flash();
     
     button.toggleType();
@@ -54,6 +54,6 @@ public class OctopusInterface extends Seq{
             button.state() * 1.0 => out.gain;
         }
     }
-    
+    //act on button press
     spork ~ onoffbuttoncheck();    
 }
