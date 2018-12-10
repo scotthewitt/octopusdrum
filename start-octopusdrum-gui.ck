@@ -8,3 +8,5 @@ Machine.add(load);
 
 me.sourceDir() + "gui/" + "OctopusInterfaceGui.ck" => load;
 Machine.add(load);
+
+//now add example/octopusdrum-interface-example.ck
