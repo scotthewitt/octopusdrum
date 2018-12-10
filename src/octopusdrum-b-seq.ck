@@ -1,6 +1,9 @@
 //create per drum sequencer
 public class Seq extends Drum{
    float pattern[];
+   
+   Event beat;
+   
    300::ms => dur interval;
    
    //play pattern at set tempo
@@ -12,6 +15,7 @@ public class Seq extends Drum{
            {
                spork ~ playsample(pattern[i]);
                //<<< "played" >>>;
+               beat.broadcast();
            }
            interval => now;
        }

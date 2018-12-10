@@ -5,6 +5,8 @@ public class Drum{
  string filename;
  0.0 => buf.rate;
  
+ string samplename;
+ 
  function void loadsample(string samplepath){
      me.sourceDir() + samplepath => filename;
      filename => buf.read;
