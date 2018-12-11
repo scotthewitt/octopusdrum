@@ -28,7 +28,23 @@ public class OctopusInterface extends Seq{
     1 => button.state;
     gui.addElement( button );
     gui.addElement( led );
+    
+    //set start state 1 or 0
+    function void startstate(int i)
+    {
+        i => button.state;
+        Envelope temp => blackhole;
+        0::samp => dur counter;
+        2::ms => temp.duration;
+        button.state() * 1.0 => temp.target;
+        while(counter < temp.duration())
+        {
+            counter + 1::samp => counter;
+            temp.value() => out.gain;
+            1::samp => now;
+        }
 
+    }
          
     //on/off sound
     function void onoffbuttoncheck()
@@ -90,7 +106,8 @@ public class OctopusInterface extends Seq{
     }
     
     spork ~ lev_mon();
-
+    
+    1.0 => slider.value;
     
     gui.size(350,90);
     gui.name("Sound");
