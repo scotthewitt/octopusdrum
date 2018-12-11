@@ -27,10 +27,8 @@ public class OctopusInterface extends Seq{
     button.position( 50, 0 );
     1 => button.state;
     gui.addElement( button );
-    gui.size(150,90);
     gui.addElement( led );
-    gui.name("Sound");
-    gui.display();
+
          
     //on/off sound
     function void onoffbuttoncheck()
@@ -55,5 +53,46 @@ public class OctopusInterface extends Seq{
         }
     }
     //act on button press
-    spork ~ onoffbuttoncheck();    
+    spork ~ onoffbuttoncheck();   
+    
+    buf =< out;
+    buf => Envelope e => out;
+    4::ms => e.duration;
+    1.0 => e.value;
+        
+    MAUI_Slider slider;
+    MAUI_Gauge gauge;
+    gui.addElement(slider);
+    gui.addElement(gauge);
+    slider.position( 120, 10 );
+    gauge.position( 120, 0 );
+    slider.range( 0.0, 1.0 );
+    
+    function void slidervalue()
+    {
+        float f;
+        while(1)
+        {
+            slider => now;        
+            slider.value() => e.target;
+            //let envelope smooth
+            e.duration() => now;
+        }
+    }
+    
+    spork ~ slidervalue();
+    
+    function void lev_mon (){
+        while (true){
+            out.last() * 100.0 => gauge.value;
+            30::ms => now;
+        }
+    }
+    
+    spork ~ lev_mon();
+
+    
+    gui.size(350,90);
+    gui.name("Sound");
+    gui.display(); 
 }
